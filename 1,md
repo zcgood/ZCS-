@@ -1,0 +1,41 @@
+#include<iostream>
+using namespace std;
+int factorial(int num)          //创建一个函数计算阶乘
+{
+	int s,t;
+	t=1;
+	for(s=1;s<=num;s++)           //利用循环求阶乘
+	{
+		t=s*t;
+	}
+	return t;
+}
+int combinNum(int m,int n)               //计算组合数的值
+{
+	int a,b,c,d,h;
+	a=factorial(m);                      //求公式中的各个阶乘
+	b=factorial(n);
+	d=m-n;
+	c=factorial(d);
+	h=a/(b*c);
+	return h;
+}
+void main()
+{
+	int m,n,k;
+	cin>>m>>n;
+	if(m==n)                                        //判断组合数是否存在
+	{
+		k=1;
+		cout<<"组合数C("<<m<<","<<n<<")的值为"<<k<<endl;
+	}
+	else if(m<n)
+	{
+		cout<<"组合数C("<<m<<","<<n<<")不存在"<<endl;
+	}
+	else if(m>n)
+	{
+		k=combinNum(m,n);
+		cout<<"组合数C("<<m<<","<<n<<")的值为"<<k<<endl;
+	}
+} # ZCS-1
