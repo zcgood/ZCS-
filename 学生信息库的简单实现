@@ -1,0 +1,251 @@
+#include<iostream>
+#include<fstream>
+#include<iomanip>
+#define NULL 0
+using namespace std;
+int ckxsxx(struct Stu*head);
+void jsckskxx(struct Teacher*i);
+void xgxsxx(struct Stu*head);
+void savefile(struct Stu*head);
+void savefile1(struct Stu*head);
+struct Stu//学生信息结构类型
+{
+	char name[20];
+	char sex;
+	char bj[10];
+	char xzr[10];
+	float score[3];
+	struct Stu*next;
+};
+int ckxsxx(struct Stu*head);
+void jsckskxx(struct Teacher*i);
+void xgxsxx(struct Stu*head);
+void savefile(Stu *head);
+Stu *readfile(Stu *head);
+void savefile(Stu *head)//将信息存入文件
+{
+	ofstream save("Student.txt", ios::out | ios::app);
+	if (!save)
+	{
+		cout << "不能保存：Student.txt！！ " << endl;
+		system("pause");
+		exit(1);
+	}
+	Stu *G;
+	G = head;
+	while (G != NULL)
+	{
+		save << '\t' << G->name << '\t' << G->sex << '\t' << G->bj << '\t' << G->xzr << '\t' << G->score[0] << '\t' << G->score[1] << '\t' << G->score[2] << endl;
+		G = G->next;
+	}
+	save.close();
+}
+void savefile1(struct Stu*head)
+{
+	{
+		ofstream save("Student.txt", ios::out);
+		if (!save)
+		{
+			cout << "不能保存：Student.txt！！ " << endl;
+			system("pause");
+			exit(1);
+		}
+		Stu *G;
+		G = head;
+		while (G != NULL)
+		{
+			save << '\t' << G->name << '\t' << G->sex << '\t' << G->bj << '\t' << G->xzr << '\t' << G->score[0] << '\t' << G->score[1] << '\t' << G->score[2] << endl;
+			G = G->next;
+		}
+		save.close();
+	}
+}
+Stu *readfile(Stu *head)        //读取文件中的数据
+{
+	Stu *p = 0, *q = 0;
+	int k = 0;
+	ifstream read("Student.txt", ios::in);
+	if (!read)
+	{
+		cout << "读取文件失败！！" << endl;
+		system("pause");
+		exit(1);
+	}
+
+	while (read.good())
+	{
+		k++;
+		p = new Stu;
+		read >> p->name >> p->sex >> p->bj >> p->xzr >> p->score[0] >> p->score[1] >> p->score[2];
+		if (k == 1)
+			head = p;
+		else
+		{
+			q->next = p;
+		}
+		q = p;
+	}
+	p->next = NULL;
+	read.close();
+	return head;
+}
+struct Teacher//教师授课信息
+{
+	char name[20];
+	char sskc[20];
+}Tea[3] = { { "吴建生","c++" } ,{ "吴建生","c++实验" } ,{ "邱桃荣","导论" } };
+struct Stu*creat()//添加学生信息
+{
+	struct Stu *head, *p = 0, *q = 0;
+	int k, i;
+	char a;
+	head = NULL;
+	k = 0;
+	cout << "确认是否添加学生信息（Y/N）\n";
+	cin >> a;
+	while (a == 'Y')
+	{
+		k++;
+		p = new Stu;
+		cout << "输入学生名字,性别(w,m),所在班级，系主任\n";
+		cin >> p->name;
+		cin >> p->sex;
+		cin >> p->bj;
+		cin >> p->xzr;
+		cout << "输入课程成绩（c++，c++实验，导论）成绩\n";
+		for (i = 0; i < 3; i++)
+			cin >> p->score[i];
+		if (k == 1) head = p;
+		else q->next = p;
+		q = p;
+		cout << "请再次输入是否需要再次添加学生信息（Y/N）\n";
+		cin >> a;
+	}
+	p->next = NULL;
+	return(head);
+}
+int ckxsxx(struct Stu*head)//根据姓名查找学生信息
+{
+	struct Stu*p;
+	int i;
+	char name[20];
+	if (head == NULL)
+	{
+		cout << "请先添加学生信息" << endl; return 0;
+	}
+	p = head;
+	cout << "输出你想要查找的学生姓名\n";
+	cin >> name;
+	cout << setw(20) << "姓名" << setw(5) << "性别" << setw(10) << "班级" << setw(10) << "系主任" << setw(8) << "c++" << setw(8) << "c++实验" << setw(8) << "导论\n";
+	while (p != NULL)//如果不为空，继续查找
+	{
+		if (strcmp(name, p->name) == 0)
+		{
+			cout << setw(20) << p->name << setw(5) << p->sex << setw(10) << p->bj << setw(10) << p->xzr;
+			for (i = 0; i < 3; i++)
+				cout << setw(8) << p->score[i];
+		}
+		p = p->next;
+	}
+	return 0;
+}
+void jsckskxx(struct Teacher*i)//根据老师姓名查找老师所教课程信息
+
+{
+	char a[20];
+	int b;
+	i = Tea;
+	cout << "请输入教师的姓名\n";
+	cin >> a;
+	cout << "---------------------------------------------------------\n";
+	cout << setw(20) << "教师姓名" << setw(20) << "教师所教课程\n";
+	for (b = 0; b<3; b++)
+	{
+		if (strcmp(a, (i + b)->name) == 0)
+		{
+			cout << "---------------------------------------------------------\n";
+			cout << setw(20) << (i + b)->name << setw(20) << (i + b)->sskc << endl;
+		}
+	}
+	cout << "------------------------------------------------\n";
+}
+int ckbjxsxx(struct Stu*head)//根据班级查看学生信息
+
+{
+	struct Stu*p = head;
+	int i;
+	char bj[10];
+	if (p == NULL)
+	{
+		cout << "请先添加学生信息" << endl; return 0;
+	}
+	cout << "输出你想要查找的班级\n";
+	cin >> bj;
+	cout << setw(20) << "姓名" << setw(5) << "性别" << setw(10) << "班级" << setw(10) << "系主任" << setw(8) << "c++" << setw(8) << "c++实验" << setw(8) << "导论\n";
+	while (p != NULL)//如果不为空，继续查找
+	{
+		if (strcmp(bj, p->bj) == 0)
+		{
+			cout << setw(20) << p->name << setw(5) << p->sex << setw(10) << p->bj << setw(10) << p->xzr;
+			for (i = 0; i < 3; i++)
+				cout << setw(8) << p->score[i];
+			cout << endl;
+		}
+		p = p->next;
+	}
+	return 0;
+}
+void xgxsxx(struct Stu*head)//替换学生的信息
+{
+	char name[20];
+	struct Stu*p = head;
+	cout << "输入你想要替换的学生姓名\n";
+	cin >> name;
+	while (p != NULL)//如果不为空，继续查找
+	{
+		if (strcmp(name, p->name) == 0)
+		{
+			cout << "输入你想要替换为的学生姓名"; cin >> p->name;
+			cout << "输入你想要替换为的学生班级"; cin >> p->bj;
+			cout << "输入学生性别"; cin >> p->sex;
+			cout << "输入系主任名字"; cin >> p->xzr;
+			cout << "输入c++成绩"; cin >> p->score[0];
+			cout << "输出c++实验成绩"; cin >> p->score[1];
+			cout << "输入导论成绩"; cin >> p->score[2];
+		}
+		p = p->next;
+	}
+	cout << endl;
+}
+int main(void)
+{
+	struct Stu *head;
+	struct Teacher *i;
+	head = NULL; i = NULL;
+	int a;
+	cout << "**************************************************************************************************\n";
+	cout << "                                  欢迎来到南昌大学网络教务管理系统\n";
+	cout << "------------------------------------------1.添加学生信息-----------------------------------------\n";
+	cout << "------------------------------------------2.显示学生信息-----------------------------------------\n";
+	cout << "----------------------------------------3.教师查看授课信息---------------------------------------\n";
+	cout << "---------------------------------------4.教师查看班级学生信息------------------------------------\n";
+	cout << "------------------------------------------5.修改学生信息-----------------------------------------\n";
+	cout << "--------------------------------------------0.安全退出-------------------------------------------\n";
+	cout << "**************************************************************************************************\n";
+	cin >> a;
+	do {
+		switch (a)
+		{
+		case 1: head = creat(); savefile(head); break;
+		case 2:head = readfile(head); ckxsxx(head); break;
+		case 3:jsckskxx(i); break;
+		case 4:head = readfile(head); ckbjxsxx(head); break;
+		case 5:head = readfile(head); xgxsxx(head); savefile1(head);break;
+		default:cout << "错误 未找到对应功能";
+		}
+		cout << endl;
+		cout << "继续输入你想要使用的功能\n";
+		cin >> a;
+	} while (a != 0);
+	return 0;
+}
