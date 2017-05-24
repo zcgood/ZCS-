@@ -1,0 +1,35 @@
+code segment
+	assume cs:code
+start:	mov cx,15
+	mov bx,0
+next_line:push cx
+	mov cx,15
+	push bx
+A:	mov ax,0
+	cmp bx,ax
+	jbe  B
+	mov dl,20h
+	mov ah,2
+	int 21h
+	dec bx
+	jmp A
+B:	pop bx
+	inc bx		
+C:	mov dl,38h
+	mov ah,2
+	int 21h
+	mov dl,20h
+	mov ah,2
+	int 21h
+	loop C
+	pop cx
+	mov ah,2
+	mov dl,0dh
+	int 21h
+	mov dl,0ah
+	int 21h
+	loop next_line
+	mov ah,4ch
+	int 21h
+code ends
+	end start
