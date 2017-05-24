@@ -1,0 +1,39 @@
+2.data segment
+3.string db 'In 1990,the exchange rate was 8.1/$'
+4.num db 0
+5.char db 0
+6.other db 0
+7.data ends
+8.code segment
+9.assume cs:code,ds:data
+10.start:mov ax,data
+11.      mov ds,ax
+12.      mov si,offset string
+13.      mov cx,num-string
+14.continue:mov dl,[si]
+15.         cmp dl,61h
+16.         jb la1
+17.         cmp dl,7Ah
+18.         ja la1
+19.         inc char
+20.         jmp next
+21.la1:cmp dl,41h
+22.    jb la2
+23.    cmp dl,5Ah
+24.    ja la2
+25.    inc char
+26.    jmp next
+27.la2:cmp dl,30h
+28.    jb la3
+29.    cmp dl,39h
+30.    ja la3
+31.    inc num
+32.    jmp next
+33.la3:inc other
+34.    jmp next
+35.next:inc si
+36.     loop continue
+37.     mov ah,4ch
+38.     int 21h
+39.code ends
+40.     end start
