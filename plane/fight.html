@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>flight</title>
+</head>
+<body>
+<style>
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+	background-color: yellow;
+}
+
+.plane-wrapper{
+	top: 50%;
+	left: 100%;
+	position: absolute;
+	display: inline-block;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-animation: undulate 2s;
+	animation: undulate 2s linear infinite alternate;
+	-webkit-perspective:2500px ;
+	perspective:2500px ;
+}
+.rotate-container
+{
+	position: absolute;
+	top:51.7003%;
+	left: 13.1%;
+	display: inline-block;
+	width: 27.424%;
+	height: 14.4474%;
+	-webkit-transform-origin: center center;
+	transform-origin: center center;
+	animation: rotate 0.1s infinite;
+}
+@keyframes undulate{
+	25%{
+		-webkit-transform: translateY(1.5em);
+		transform: translateY(1.5em);
+	}
+	50%{
+		-webkit-transform: translateY(-1.5em);
+		transform: translateY(-1.5em);
+	}
+	75%{
+		-webkit-transform: translateY(1.5em);
+		transform: translateY(1.5em);
+	}
+	100%{
+		-webkit-transform: translateY(-1.5em);
+		transform: translateY(-1.5em);
+	}
+}
+@keyframes rotate{
+	9%{
+		-webkit-transform: rotate(30deg);
+		transform:transform: rotate(30deg);
+	}
+	18%{
+		-webkit-transform: rotate(60deg);
+		transform: rotate(60deg);	
+	}
+	25%{
+		-webkit-transform: rotate(90deg);
+		transform: rotate(90deg);
+	}
+	34%{
+		-webkit-transform: rotate(120deg);
+		transform: rotate(120deg);
+	}
+	43%{
+		-webkit-transform: rotate(30deg);
+		transform: rotate(30deg);
+	}
+	50%{
+		-webkit-transform: rotate(150deg);
+		transform: rotate(150deg);
+	}
+	59%{
+		-webkit-transform: rotate(180deg);
+		transform: rotate(180deg);
+	}
+	68%{
+		-webkit-transform: rotate(210deg);
+		transform: rotate(210deg);
+	}
+	75%{
+		-webkit-transform: rotatr(240deg);
+		transform: rotate(240deg);
+	}
+	84%{
+		-webkit-transform: rotate(270deg);
+		transform: rotate(270deg);
+	}
+	93%{
+		-webkit-transform: rotate(300deg);
+		transform: rotate(300deg);
+	}
+	100%{
+		-webkit-transform: rotate(330deg);
+		transform: rotate(300deg);
+	}
+
+}
+</style>
+<div class="plane-wrapper" style="left: 146.5px;">
+<img class="plane" src="./images/plane.svg">
+<div class="rotate-container">
+<img class="propeller" src="./images/propeller.svg">
+</div>
+</div>
+</body>
+</html>
